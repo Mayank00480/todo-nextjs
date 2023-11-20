@@ -11,13 +11,28 @@ const todos = [{
   description : 'This is my Second Item'
 }]
 export default function Home(props) {
+  async function deleteTodoHandler(todoId) {
+    try {
+      const response = await fetch(`/api/delete/${todoId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log("Todo deleted successfully");
+      } else {
+        console.error("Failed to delete todo");
+      }
+    } catch (error) {
+      console.error("Error deleting todo", error);
+    }
+  }
   return (
     <>
     <nav style = {{width : '100vw',backgroundColor:'black',margin:'0px', height : '100px'}}>
       <Link style = {{textDecoration : 'none',color : 'white'}} href = "/addItem"> Add Item </Link>
     </nav>
       {props.items.map(item => {
-        return <><p key = {Math.random().toString()}>{item.description}</p>&nbsp; &nbsp;<button type = "button">Delete</button></>
+        return <><p key = {Math.random().toString()}>{item.description}</p>&nbsp; &nbsp;<button onClick = {deleteTodoHandler} type = "button">Delete</button></>
       })}
     </>
   )
