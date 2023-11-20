@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { MongoClient } from 'mongodb'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 const todos = [{
@@ -12,8 +13,11 @@ const todos = [{
 export default function Home(props) {
   return (
     <>
+    <nav style = {{width : '100vw',backgroundColor:'black',margin:'0px', height : '100px'}}>
+      <Link style = {{textDecoration : 'none',color : 'white'}} href = "/addItem"> Add Item </Link>
+    </nav>
       {props.items.map(item => {
-        return <p key = {Math.random().toString()}>{item.description}</p>
+        return <><p key = {Math.random().toString()}>{item.description}</p>&nbsp; &nbsp;<button type = "button">Delete</button></>
       })}
     </>
   )
